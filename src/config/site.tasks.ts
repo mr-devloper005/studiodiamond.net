@@ -32,14 +32,6 @@ export const siteTaskDefinitions = [
     enabled: false,
   },
   {
-    key: 'profile',
-    label: 'Profiles',
-    route: '/profile',
-    description: 'Creator and business profiles.',
-    contentType: 'profile',
-    enabled: true,
-  },
-  {
     key: 'sbm',
     label: 'Social Bookmarking',
     route: '/sbm',
@@ -59,8 +51,16 @@ export const siteTaskDefinitions = [
     key: 'pdf',
     label: 'PDF Library',
     route: '/pdf',
-    description: 'PDF resources and downloads.',
+    description: 'Structured PDF resources and downloads.',
     contentType: 'pdf',
+    enabled: true,
+  },
+  {
+    key: 'profile',
+    label: 'Profiles',
+    route: '/profile',
+    description: 'Public profiles and professional presence.',
+    contentType: 'profile',
     enabled: true,
   },
   {

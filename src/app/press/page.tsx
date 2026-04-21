@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/dialog'
 import { useToast } from '@/components/ui/use-toast'
 import { mockPressAssets, mockPressCoverage } from '@/data/mock-data'
+import { luxe } from '@/components/shared/luxe-styles'
 
 export default function PressPage() {
   const { toast } = useToast()
@@ -24,30 +25,33 @@ export default function PressPage() {
   return (
     <PageShell
       title="Press"
-      description="Media resources, brand assets, and press coverage."
+      description="Logos, product captures, and storylines for journalists covering our PDF + profile studio."
     >
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card className="border-border bg-card">
-          <CardContent className="p-6 space-y-3">
-            <h2 className="text-lg font-semibold text-foreground">Press Kit</h2>
-            <p className="text-sm text-muted-foreground">
-              Download logos, product screenshots, and brand guidelines for media use.
+        <Card className={luxe.card}>
+          <CardContent className="space-y-4 p-7">
+            <p className={luxe.eyebrow}>Media desk</p>
+            <h2 className={`font-display text-xl font-semibold ${luxe.ink}`}>Press kit</h2>
+            <p className={`text-sm leading-relaxed ${luxe.muted}`}>
+              Download bronze-on-cream brand marks, UI captures of the library and profile surfaces, and talking points
+              about why teams consolidate PDFs here.
             </p>
-            <div className="grid gap-2">
+            <div className="grid gap-3">
               {mockPressAssets.map((asset) => (
-                <div key={asset.id} className="rounded-lg border border-border bg-secondary/40 px-4 py-3">
+                <div key={asset.id} className={luxe.soft}>
                   <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <div>
-                      <p className="text-sm font-medium text-foreground">{asset.title}</p>
-                      <p className="text-xs text-muted-foreground">{asset.description}</p>
+                      <p className={`text-sm font-medium ${luxe.ink}`}>{asset.title}</p>
+                      <p className={`text-xs ${luxe.muted}`}>{asset.description}</p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Badge variant="secondary">{asset.fileType}</Badge>
-                      <Button size="sm" variant="outline" onClick={() => setActiveAssetId(asset.id)}>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Badge className="border border-[#e5d9cf] bg-[#f3ebe4] text-[#5c4b42]">{asset.fileType}</Badge>
+                      <Button size="sm" variant="outline" className={luxe.btnOutline} onClick={() => setActiveAssetId(asset.id)}>
                         Preview
                       </Button>
                       <Button
                         size="sm"
+                        className={luxe.btnPrimary}
                         onClick={() =>
                           toast({
                             title: 'Download started',
@@ -66,11 +70,11 @@ export default function PressPage() {
         </Card>
         <div className="space-y-4">
           {mockPressCoverage.map((item) => (
-            <Card key={item.id} className="border-border bg-card transition-transform hover:-translate-y-1">
+            <Card key={item.id} className={`${luxe.card} transition-transform hover:-translate-y-1`}>
               <CardContent className="p-6">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground">{item.outlet}</div>
-                <p className="mt-2 text-sm text-foreground">{item.headline}</p>
-                <p className="mt-2 text-xs text-muted-foreground">{item.date}</p>
+                <div className={`text-xs font-semibold uppercase tracking-wide ${luxe.muted}`}>{item.outlet}</div>
+                <p className={`mt-2 text-sm font-medium ${luxe.ink}`}>{item.headline}</p>
+                <p className={`mt-2 text-xs ${luxe.muted}`}>{item.date}</p>
               </CardContent>
             </Card>
           ))}
@@ -83,7 +87,7 @@ export default function PressPage() {
             <DialogTitle>{activeAsset?.title}</DialogTitle>
           </DialogHeader>
           {activeAsset?.previewUrl && (
-            <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-border bg-muted">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-[#e5d9cf] bg-[#faf6f2]">
               <Image
                 src={activeAsset.previewUrl}
                 alt={activeAsset.title}
@@ -92,12 +96,13 @@ export default function PressPage() {
               />
             </div>
           )}
-          <p className="text-sm text-muted-foreground">{activeAsset?.description}</p>
+          <p className={`text-sm ${luxe.muted}`}>{activeAsset?.description}</p>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setActiveAssetId(null)}>
+            <Button variant="outline" className={luxe.btnOutline} onClick={() => setActiveAssetId(null)}>
               Close
             </Button>
             <Button
+              className={luxe.btnPrimary}
               onClick={() =>
                 toast({
                   title: 'Download started',

@@ -236,11 +236,12 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#F9F7F4] text-[#2a211c] antialiased">
       <NavbarShell />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-foreground mb-8">Settings</h1>
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8a7265]">Workspace</p>
+        <h1 className="mb-8 font-display text-3xl font-semibold tracking-tight text-[#2a211c]">Settings</h1>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
@@ -250,10 +251,10 @@ export default function SettingsPage() {
                 <button
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
+                  className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left transition-colors ${
                     activeSection === section.id
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      ? "bg-[#efe6df] text-[#2a211c] ring-1 ring-[#e5d9cf]"
+                      : "text-[#6b584d] hover:bg-white/80 hover:text-[#2a211c]"
                   }`}
                 >
                   <section.icon className="h-5 w-5" />
@@ -279,7 +280,7 @@ export default function SettingsPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2 }}
-              className="bg-card rounded-xl border border-border p-6"
+              className="rounded-2xl border border-[#e5d9cf] bg-white/95 p-6 shadow-sm"
             >
               {/* Profile Section */}
               {activeSection === "profile" && (

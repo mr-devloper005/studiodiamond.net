@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Building2, FileText, Image as ImageIcon, LayoutGrid, Tag, User } from 'lucide-react'
+import { ArrowRight, Building2, Download, FileText, Image as ImageIcon, LayoutGrid, Search, Shield, Sparkles, Tag, User, Users } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 import { TaskListClient } from '@/components/tasks/task-list-client'
@@ -28,11 +28,13 @@ const variantShells = {
   'listing-directory': 'bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.08),transparent_24%),linear-gradient(180deg,#f8fbff_0%,#ffffff_100%)]',
   'listing-showcase': 'bg-[linear-gradient(180deg,#ffffff_0%,#f4f9ff_100%)]',
   'article-editorial': 'bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.08),transparent_20%),linear-gradient(180deg,#fff8ef_0%,#ffffff_100%)]',
-  'article-journal': 'bg-[linear-gradient(180deg,#fffdf9_0%,#f7f1ea_100%)]',
+  'article-journal':
+    'bg-[linear-gradient(180deg,#fffdf9_0%,#f9f7f4_45%,#f3ebe4_100%)] text-[#2a211c]',
   'image-masonry': 'bg-[linear-gradient(180deg,#09101d_0%,#111c2f_100%)] text-white',
   'image-portfolio': 'bg-[linear-gradient(180deg,#07111f_0%,#13203a_100%)] text-white',
   'profile-creator': 'bg-[linear-gradient(180deg,#0a1120_0%,#101c34_100%)] text-white',
-  'profile-business': 'bg-[linear-gradient(180deg,#f6fbff_0%,#ffffff_100%)]',
+  'profile-business':
+    'bg-[linear-gradient(180deg,#fffdf9_0%,#f9f7f4_45%,#f3ebe4_100%)] text-[#2a211c]',
   'classified-bulletin': 'bg-[linear-gradient(180deg,#edf3e4_0%,#ffffff_100%)]',
   'classified-market': 'bg-[linear-gradient(180deg,#f4f6ef_0%,#ffffff_100%)]',
   'sbm-curation': 'bg-[linear-gradient(180deg,#fff7ee_0%,#ffffff_100%)]',
@@ -71,11 +73,11 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
       }
     : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
       ? {
-          muted: 'text-[#72594a]',
-          panel: 'border border-[#dbc6b6] bg-white/90',
-          soft: 'border border-[#dbc6b6] bg-[#fff8ef]',
-          input: 'border border-[#dbc6b6] bg-white text-[#2f1d16]',
-          button: 'bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
+          muted: 'text-[#6b584d]',
+          panel: 'border border-[#e5d9cf] bg-white/95 shadow-sm',
+          soft: 'border border-[#e5d9cf] bg-[#f3ebe4]/80',
+          input: 'border border-[#e5d9cf] bg-white text-[#2a211c]',
+          button: 'bg-[#A98E7B] text-white hover:bg-[#957a68]',
         }
       : {
           muted: 'text-slate-600',
@@ -150,12 +152,27 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
           <section className="mb-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
             <div>
               <p className={`text-xs uppercase tracking-[0.3em] ${ui.muted}`}>{taskConfig?.label || task}</p>
-              <h1 className="mt-3 max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-foreground">{taskConfig?.description || 'Latest posts'}</h1>
-              <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>This reading surface uses slower pacing, stronger typographic hierarchy, and more breathing room so long-form content feels intentional rather than squeezed into a generic feed.</p>
+              <h1 className="mt-3 max-w-4xl font-display text-5xl font-semibold tracking-[-0.05em] text-foreground">
+                {task === 'pdf'
+                  ? 'A calm library for PDFs visitors can skim, trust, and download without friction.'
+                  : task === 'profile'
+                    ? 'Profiles with editorial pacing—room for story, proof, and portrait imagery.'
+                    : taskConfig?.description || 'Latest posts'}
+              </h1>
+              <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>
+                {task === 'pdf'
+                  ? 'Typography, metadata, and download cues sit on the same cream field as the homepage so every document feels part of one studio.'
+                  : task === 'profile'
+                    ? 'Identity pages borrow the luxe bronze palette: serif headlines, soft dividers, and generous spacing instead of cramped directory cards.'
+                    : 'This reading surface uses slower pacing, stronger typographic hierarchy, and more breathing room so long-form content feels intentional rather than squeezed into a generic feed.'}
+              </p>
             </div>
             <div className={`rounded-[2rem] p-6 ${ui.panel}`}>
-              <p className={`text-xs font-semibold uppercase tracking-[0.24em] ${ui.muted}`}>Reading note</p>
-              <p className={`mt-4 text-sm leading-7 ${ui.muted}`}>Use category filters to jump between topics without collapsing the page into the same repeated card rhythm used by other task types.</p>
+              <p className={`text-xs font-semibold uppercase tracking-[0.24em] ${ui.muted}`}>Browse tip</p>
+              <p className={`mt-4 text-sm leading-7 ${ui.muted}`}>
+                Filters keep the grid breathable—jump between document sets or profile lanes without losing the warm bronze
+                accents that anchor the brand.
+              </p>
               <form className="mt-5 flex items-center gap-3" action={taskConfig?.route || '#'}>
                 <select name="category" defaultValue={normalizedCategory} className={`h-11 flex-1 rounded-xl px-3 text-sm ${ui.input}`}>
                   <option value="all">All categories</option>
@@ -165,6 +182,71 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
                 </select>
                 <button type="submit" className={`h-11 rounded-xl px-4 text-sm font-medium ${ui.button}`}>Apply</button>
               </form>
+            </div>
+          </section>
+        ) : null}
+
+        {task === 'pdf' && (layoutKey === 'article-editorial' || layoutKey === 'article-journal') ? (
+          <section className="mb-10 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {[
+                { n: '120+', l: 'Live documents' },
+                { n: '48', l: 'Curated packs' },
+                { n: '12', l: 'Categories' },
+                { n: '4.9★', l: 'Reader clarity' },
+              ].map((s) => (
+                <div
+                  key={s.l}
+                  className="rounded-2xl border border-[#e5d9cf] bg-white/90 px-4 py-5 text-center shadow-sm"
+                >
+                  <p className="font-display text-2xl font-semibold text-[#2a211c]">{s.n}</p>
+                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-[#8a7265]">{s.l}</p>
+                </div>
+              ))}
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {[
+                {
+                  icon: Download,
+                  t: 'Download-ready',
+                  d: 'Each card exposes file type, size, and a single obvious download path.',
+                },
+                {
+                  icon: Sparkles,
+                  t: 'Preview first',
+                  d: 'Hero panels surface the first pages so visitors know the tone before committing.',
+                },
+                {
+                  icon: Shield,
+                  t: 'Trust cues',
+                  d: 'Version notes and author lines keep compliance-friendly PDFs feeling human.',
+                },
+              ].map((item) => (
+                <div key={item.t} className="rounded-2xl border border-[#e5d9cf] bg-[#faf6f2]/90 p-5">
+                  <item.icon className="h-5 w-5 text-[#A98E7B]" />
+                  <p className="mt-3 text-sm font-semibold text-[#2a211c]">{item.t}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-[#6b584d]">{item.d}</p>
+                </div>
+              ))}
+            </div>
+            <div className="col-span-full flex flex-wrap gap-3 rounded-2xl border border-[#eadfd6] bg-[#f3ebe4]/60 px-5 py-4">
+              <Link
+                href="/profile"
+                className="inline-flex items-center gap-2 rounded-md bg-[#A98E7B] px-4 py-2 text-xs font-semibold text-white hover:bg-[#957a68]"
+              >
+                Meet the authors
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+              <Link
+                href="/search"
+                className="inline-flex items-center gap-2 rounded-md border border-[#d9c9bc] bg-white px-4 py-2 text-xs font-semibold text-[#2a211c] hover:bg-[#faf6f2]"
+              >
+                <Search className="h-3.5 w-3.5" />
+                Search the library
+              </Link>
+              <Link href="/contact" className="inline-flex items-center gap-2 text-xs font-semibold text-[#A98E7B] hover:underline">
+                Request a custom pack
+              </Link>
             </div>
           </section>
         ) : null}
@@ -187,13 +269,71 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         ) : null}
 
         {layoutKey === 'profile-creator' || layoutKey === 'profile-business' ? (
-          <section className={`mb-12 rounded-[2.2rem] p-8 shadow-[0_24px_70px_rgba(15,23,42,0.1)] ${ui.panel}`}>
-            <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-              <div className={`min-h-[240px] rounded-[2rem] ${ui.soft}`} />
+          <section className={`mb-12 rounded-[2.2rem] p-8 shadow-[0_24px_70px_rgba(58,42,32,0.08)] ${ui.panel}`}>
+            <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+              <div className={`relative min-h-[260px] overflow-hidden rounded-[2rem] border border-[#e5d9cf] ${ui.soft}`}>
+                {task === 'profile' ? (
+                  <>
+                    <img
+                      src="/hero-section.png"
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#f9f7f4]/95 via-[#f9f7f4]/40 to-transparent" />
+                    <div className="relative flex h-full flex-col justify-end p-6">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#5c4b42]">Studio tone</p>
+                      <p className="mt-2 font-display text-xl font-semibold text-[#2a211c]">Portraits & proof</p>
+                    </div>
+                  </>
+                ) : (
+                  <div className="h-full min-h-[240px] rounded-[2rem] bg-[#efe6df]" />
+                )}
+              </div>
               <div>
                 <p className={`text-xs uppercase tracking-[0.3em] ${ui.muted}`}>{taskConfig?.label || task}</p>
-                <h1 className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-foreground">Profiles with stronger identity, trust, and reputation cues.</h1>
-                <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>This layout prioritizes the person or business surface first, then lets the feed continue below without borrowing the same visual logic used by articles or listings.</p>
+                <h1 className="mt-3 font-display text-4xl font-semibold tracking-[-0.05em] text-foreground">
+                  {task === 'profile'
+                    ? 'Public profiles that feel bespoke—headline, proof points, and imagery in one luxe column.'
+                    : 'Profiles with stronger identity, trust, and reputation cues.'}
+                </h1>
+                <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>
+                  {task === 'profile'
+                    ? 'Cards echo the homepage: cream panels, bronze buttons, and serif titles so every teammate looks like part of the same studio.'
+                    : 'This layout prioritizes the person or business surface first, then lets the feed continue below without borrowing the same visual logic used by articles or listings.'}
+                </p>
+                {task === 'profile' ? (
+                  <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                    {[
+                      { icon: Users, label: 'Team-ready bios', body: 'Role, location, and social proof in one scan.' },
+                      { icon: Shield, label: 'Trust layout', body: 'Credentials and media blocks stay aligned to the grid.' },
+                      { icon: Sparkles, label: 'Editorial polish', body: 'Serif headlines and bronze accents match the hero.' },
+                    ].map((cell) => (
+                      <div key={cell.label} className="rounded-xl border border-[#eadfd6] bg-[#faf6f2]/80 p-4">
+                        <cell.icon className="h-4 w-4 text-[#A98E7B]" />
+                        <p className="mt-2 text-xs font-semibold text-[#2a211c]">{cell.label}</p>
+                        <p className="mt-1 text-[11px] leading-relaxed text-[#6b584d]">{cell.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+                {task === 'profile' ? (
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Link
+                      href="/pdf"
+                      className="inline-flex items-center gap-2 rounded-md bg-[#A98E7B] px-4 py-2 text-xs font-semibold text-white hover:bg-[#957a68]"
+                    >
+                      Browse PDF library
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
+                    <Link
+                      href="/search"
+                      className="inline-flex items-center gap-2 rounded-md border border-[#d9c9bc] bg-white px-4 py-2 text-xs font-semibold text-[#2a211c] hover:bg-[#faf6f2]"
+                    >
+                      <Search className="h-3.5 w-3.5" />
+                      Find a name
+                    </Link>
+                  </div>
+                ) : null}
               </div>
             </div>
           </section>
@@ -237,7 +377,48 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
           </section>
         ) : null}
 
-        {intro ? (
+        {task === 'pdf' ? (
+          <section className={`mb-10 rounded-[2rem] border border-[#e5d9cf] bg-white/95 p-7 shadow-sm sm:p-9`}>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8a7265]">Inside the library</p>
+            <h2 className="mt-2 font-display text-2xl font-semibold text-[#2a211c]">Structured files, calmer discovery</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[#6b584d]">
+              Every PDF is treated like a publication: clear titles, honest summaries, and categories that help teams find
+              the right deck without wading through unrelated formats.
+            </p>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[#6b584d]">
+              Use the filter above to narrow by topic, then open any card for a full read-me-first layout before
+              downloading.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="/profile" className="text-sm font-semibold text-[#A98E7B] hover:underline">
+                See who publishes these PDFs →
+              </Link>
+              <Link href="/contact" className="text-sm font-semibold text-[#A98E7B] hover:underline">
+                Commission a new pack →
+              </Link>
+            </div>
+          </section>
+        ) : task === 'profile' ? (
+          <section className={`mb-10 rounded-[2rem] border border-[#e5d9cf] bg-white/95 p-7 shadow-sm sm:p-9`}>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8a7265]">Directory</p>
+            <h2 className="mt-2 font-display text-2xl font-semibold text-[#2a211c]">People, teams, and public presence</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[#6b584d]">
+              Profiles are the trust anchor next to your PDFs—bios, headshots, and focus areas stay visually linked to the
+              same bronze system used across the marketing site.
+            </p>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[#6b584d]">
+              Filter by category to spotlight a practice group, or jump into search when you know the name you need.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="/pdf" className="text-sm font-semibold text-[#A98E7B] hover:underline">
+                Open supporting PDFs →
+              </Link>
+              <Link href="/contact" className="text-sm font-semibold text-[#A98E7B] hover:underline">
+                Refresh a profile →
+              </Link>
+            </div>
+          </section>
+        ) : intro ? (
           <section className={`mb-12 rounded-[2rem] p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-8 ${ui.panel}`}>
             <h2 className="text-2xl font-semibold text-foreground">{intro.title}</h2>
             {intro.paragraphs.map((paragraph) => (
@@ -251,7 +432,26 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
           </section>
         ) : null}
 
-        <TaskListClient task={task} initialPosts={posts} category={normalizedCategory} />
+        <section className="mt-2">
+          <div className="mb-6 flex flex-col gap-2 border-b border-[#eadfd6] pb-5 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8a7265]">
+                {task === 'pdf' ? 'Library shelf' : task === 'profile' ? 'Spotlight grid' : 'Latest'}
+              </p>
+              <h2 className="mt-1 font-display text-2xl font-semibold text-[#2a211c]">
+                {task === 'pdf' ? 'Documents ready to open' : task === 'profile' ? 'Profiles to explore' : `${taskConfig?.label || 'Posts'}`}
+              </h2>
+            </div>
+            {task === 'pdf' || task === 'profile' ? (
+              <p className="max-w-md text-sm text-[#6b584d]">
+                {task === 'pdf'
+                  ? 'Larger cards on wide screens keep long titles readable; narrow viewports stack to a single column automatically.'
+                  : 'Three-up grid gives portraits room—switch filters anytime without losing your place.'}
+              </p>
+            ) : null}
+          </div>
+          <TaskListClient task={task} initialPosts={posts} category={normalizedCategory} />
+        </section>
       </main>
       <Footer />
     </div>
