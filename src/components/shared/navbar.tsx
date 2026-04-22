@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, Sparkles, MapPin, Plus } from 'lucide-react'
+import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, ChevronDown, Sparkles, MapPin, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth-context'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
@@ -41,12 +41,12 @@ const variantClasses = {
     mobile: 'border-t border-slate-200/70 bg-white/95',
   },
   'editorial-bar': {
-    shell: 'border-b border-[#d7c4b3] bg-[#fff7ee]/90 text-[#2f1d16] backdrop-blur-xl',
-    logo: 'rounded-full border border-[#dbc6b6] bg-white shadow-sm',
-    active: 'bg-[#2f1d16] text-[#fff4e4]',
-    idle: 'text-[#72594a] hover:bg-[#f2e5d4] hover:text-[#2f1d16]',
-    cta: 'rounded-full bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
-    mobile: 'border-t border-[#dbc6b6] bg-[#fff7ee]',
+    shell: 'border-b border-[#e5d9cf] bg-[#F9F7F4]/92 text-[#2a211c] backdrop-blur-xl',
+    logo: 'rounded-full border border-[#e0d0c4] bg-white shadow-sm',
+    active: 'bg-[#A98E7B] text-white',
+    idle: 'text-[#6b584d] hover:bg-[#efe6df] hover:text-[#2a211c]',
+    cta: 'rounded-md bg-[#A98E7B] text-white hover:bg-[#957a68]',
+    mobile: 'border-t border-[#e5d9cf] bg-[#F9F7F4]',
   },
   'floating-bar': {
     shell: 'border-b border-transparent bg-transparent text-white',
@@ -97,7 +97,7 @@ export function Navbar() {
   const { isAuthenticated } = useAuth()
   const { recipe } = getFactoryState()
 
-  const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile'), [])
+  const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled), [])
   const primaryNavigation = navigation.slice(0, 5)
   const mobileNavigation = navigation.map((task) => ({
     name: task.label,
@@ -220,17 +220,30 @@ export function Navbar() {
           </Link>
 
           {isEditorial ? (
-            <div className="hidden min-w-0 flex-1 items-center gap-4 xl:flex">
-              <div className="h-px flex-1 bg-[#d8c8bb]" />
-              {primaryNavigation.map((task) => {
-                const isActive = pathname.startsWith(task.route)
+            <div className="hidden min-w-0 flex-1 items-center gap-3 xl:flex">
+              <div className="h-px min-w-[1rem] flex-1 bg-[#dccfc4]" />
+              {[
+                { key: 'home', label: 'Home', href: '/' },
+                { key: 'about', label: 'About us', href: '/about' },
+              ].map((item) => {
+                const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
                 return (
-                  <Link key={task.key} href={task.route} className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', isActive ? 'text-[#2f1d16]' : 'text-[#7b6254] hover:text-[#2f1d16]')}>
-                    {task.label}
+                  <Link key={item.key} href={item.href} className={cn('inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-[0.16em] transition-colors', isActive ? 'text-[#2a211c]' : 'text-[#7b6254] hover:text-[#2a211c]')}>
+                    {item.label}
+                    <ChevronDown className="h-3 w-3 opacity-50" aria-hidden />
                   </Link>
                 )
               })}
-              <div className="h-px flex-1 bg-[#d8c8bb]" />
+              {primaryNavigation.map((task) => {
+                const isActive = pathname.startsWith(task.route)
+                return (
+                  <Link key={task.key} href={task.route} className={cn('inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-[0.16em] transition-colors', isActive ? 'text-[#2a211c]' : 'text-[#7b6254] hover:text-[#2a211c]')}>
+                    {task.label}
+                    <ChevronDown className="h-3 w-3 opacity-50" aria-hidden />
+                  </Link>
+                )
+              })}
+              <div className="h-px min-w-[1rem] flex-1 bg-[#dccfc4]" />
             </div>
           ) : isFloating ? (
             <div className="hidden min-w-0 flex-1 items-center gap-2 xl:flex">
@@ -295,7 +308,7 @@ export function Navbar() {
                 <Link href="/login">Sign In</Link>
               </Button>
               <Button size="sm" asChild className={style.cta}>
-                <Link href="/register">{isEditorial ? 'Subscribe' : isUtility ? 'Post Now' : 'Get Started'}</Link>
+                <Link href={isEditorial ? '/contact' : '/register'}>{isEditorial ? 'Contact' : isUtility ? 'Post Now' : 'Get Started'}</Link>
               </Button>
             </div>
           )}
@@ -319,6 +332,16 @@ export function Navbar() {
       {isMobileMenuOpen && (
         <div className={style.mobile}>
           <div className="space-y-2 px-4 py-4">
+            {isEditorial ? (
+              <div className="mb-2 grid gap-2">
+                <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold text-[#2a211c] hover:bg-[#efe6df]">
+                  Home
+                </Link>
+                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold text-[#2a211c] hover:bg-[#efe6df]">
+                  About us
+                </Link>
+              </div>
+            ) : null}
             <Link href="/search" onClick={() => setIsMobileMenuOpen(false)} className="mb-3 flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-sm font-semibold text-muted-foreground">
               <Search className="h-4 w-4" />
               Search the site

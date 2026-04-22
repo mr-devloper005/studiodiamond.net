@@ -1,29 +1,42 @@
 ﻿import { PageShell } from '@/components/shared/page-shell'
-import { Card, CardContent } from '@/components/ui/card'
+import { luxe } from '@/components/shared/luxe-styles'
 
 const sections = [
-  { title: 'Essential Cookies', body: 'Required for authentication and core features.' },
-  { title: 'Analytics Cookies', body: 'Help us understand how the platform is used.' },
-  { title: 'Preference Cookies', body: 'Remember your settings and saved filters.' },
+  {
+    title: 'Essential cookies',
+    body: 'Keep you signed in, honor security tokens when downloading PDFs, and protect forms from abuse. These cannot be disabled without breaking core flows.',
+  },
+  {
+    title: 'Functional cookies',
+    body: 'Remember category filters on the PDF grid, collapsed FAQ states on the help center, and accessibility choices such as reduced motion when supported.',
+  },
+  {
+    title: 'Analytics cookies',
+    body: 'Optional. Help us understand which profile sections or document packs get the most engagement so we can tune defaults without invasive tracking.',
+  },
+  {
+    title: 'Managing preferences',
+    body: 'Use your browser controls to clear cookies anytime. For workspace-specific telemetry, contact support with the subject “Cookie preferences”.',
+  },
 ]
 
 export default function CookiesPage() {
   return (
     <PageShell
       title="Cookie Policy"
-      description="Details about the cookies we use."
+      description="Transparent detail about the small set of cookies powering the luxe PDF and profile experience."
     >
-      <Card className="border-border bg-card">
-        <CardContent className="p-6 space-y-4">
-          <p className="text-xs text-muted-foreground">Last updated: March 16, 2026</p>
+      <div className={`${luxe.card} p-8`}>
+        <p className={`text-xs font-medium uppercase tracking-wide ${luxe.muted}`}>Last updated · April 2026</p>
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
           {sections.map((section) => (
-            <div key={section.title} className="rounded-lg border border-border bg-secondary/40 p-4">
-              <h3 className="text-sm font-semibold text-foreground">{section.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{section.body}</p>
+            <div key={section.title} className={luxe.soft}>
+              <h3 className={`text-base font-semibold ${luxe.ink}`}>{section.title}</h3>
+              <p className={`mt-2 text-sm leading-relaxed ${luxe.muted}`}>{section.body}</p>
             </div>
           ))}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </PageShell>
   )
 }
