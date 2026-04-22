@@ -1,93 +1,152 @@
-import Link from "next/link";
-import { PageShell } from "@/components/shared/page-shell";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { mockTeamMembers } from "@/data/mock-data";
-import { SITE_CONFIG } from "@/lib/site-config";
+import Link from 'next/link'
+import { PageShell } from '@/components/shared/page-shell'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { mockTeamMembers } from '@/data/mock-data'
+import { SITE_CONFIG } from '@/lib/site-config'
+import { luxe } from '@/components/shared/luxe-styles'
+import { FileText, Shield, Sparkles, User } from 'lucide-react'
 
 const highlights = [
-  { label: "Creators onboarded", value: "12k+" },
-  { label: "Bookmarks shared", value: "180k" },
-  { label: "Listings published", value: "8.6k" },
-];
+  { label: 'PDFs catalogued', value: '850+' },
+  { label: 'Public profiles', value: '320+' },
+  { label: 'Support response', value: '< 24h' },
+]
 
 const values = [
-  { title: "Curated by people", description: "We believe trusted recommendations beat endless feeds." },
-  { title: "Designed for focus", description: "Clear, calm UI helps you find the next best resource fast." },
-  { title: "Built to share", description: "Collections make collaboration and knowledge flow effortless." },
-];
+  {
+    title: 'Documents you can trust',
+    description:
+      'Every PDF surface is built for legible previews, obvious downloads, and metadata that helps visitors decide before they commit.',
+  },
+  {
+    title: 'Profiles with presence',
+    description:
+      'Identity pages read like a studio portfolio—room for story, proof points, and media without the clutter of generic social feeds.',
+  },
+  {
+    title: 'One restrained palette',
+    description:
+      'Warm cream fields and bronze accents carry from the homepage through listings of resources and people, so the brand always feels cohesive.',
+  },
+]
+
+const milestones = [
+  { year: '2024', text: 'Launched the combined PDF library and profile directory for boutique teams.' },
+  { year: '2025', text: 'Refined reader mode, download analytics, and calmer navigation focused on two lanes only.' },
+  { year: '2026', text: 'Shipped luxe editorial shells so marketing, legal, and product pages share the same visual language.' },
+]
 
 export default function AboutPage() {
   return (
     <PageShell
       title={`About ${SITE_CONFIG.name}`}
-      description={`${SITE_CONFIG.name} is a modern platform for creators, communities, and curated business discovery.`}
+      description={`${SITE_CONFIG.name} is a calm studio for downloadable PDFs and public profiles—structured publishing without the noise of listings, classifieds, or social feeds.`}
       actions={
         <>
-          <Button variant="outline" asChild>
-            <Link href="/team">Meet the Team</Link>
+          <Button variant="outline" asChild className={luxe.btnOutline}>
+            <Link href="/team">Meet the team</Link>
           </Button>
-          <Button asChild>
-            <Link href="/contact">Contact Us</Link>
+          <Button asChild className={luxe.btnPrimary}>
+            <Link href="/contact">Contact us</Link>
           </Button>
         </>
       }
     >
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card className="border-border bg-card">
-          <CardContent className="space-y-4 p-6">
-            <Badge variant="secondary">Our Story</Badge>
-            <h2 className="text-2xl font-semibold text-foreground">
-              A single home for knowledge, discovery, and community.
+      <div className="grid gap-8 lg:grid-cols-[1.12fr_0.88fr]">
+        <Card className={luxe.card}>
+          <CardContent className="space-y-6 p-8">
+            <Badge className="border border-[#e5d9cf] bg-[#f3ebe4] text-[#5c4b42]">Our story</Badge>
+            <h2 className={`font-display text-3xl font-semibold tracking-tight ${luxe.ink}`}>
+              A narrow product, on purpose.
             </h2>
-            <p className="text-sm text-muted-foreground">
-              {SITE_CONFIG.name} brings together publishing, listings, and social bookmarking so teams can move faster
-              and keep their best resources close.
+            <p className={`text-sm leading-7 ${luxe.muted}`}>
+              We built {SITE_CONFIG.name} for teams that live inside PDFs—spec packs, onboarding decks, pricing books—and
+              still need a beautiful place to introduce the humans behind the file. Profiles sit beside the library so trust
+              and download intent stay connected.
+            </p>
+            <p className={`text-sm leading-7 ${luxe.muted}`}>
+              The interface borrows cues from luxury editorial sites: generous spacing, serif headlines, and bronze CTAs
+              that feel tactile instead of neon-bright.
             </p>
             <div className="grid gap-4 sm:grid-cols-3">
               {highlights.map((item) => (
-                <div key={item.label} className="rounded-lg border border-border bg-secondary/40 p-4">
-                  <div className="text-2xl font-semibold text-foreground">{item.value}</div>
-                  <div className="text-xs text-muted-foreground">{item.label}</div>
+                <div key={item.label} className={luxe.soft}>
+                  <div className={`font-display text-3xl font-semibold ${luxe.ink}`}>{item.value}</div>
+                  <div className={`mt-1 text-xs font-medium uppercase tracking-wide ${luxe.muted}`}>{item.label}</div>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4">
           {values.map((value) => (
-            <Card key={value.title} className="border-border bg-card">
+            <Card key={value.title} className={luxe.card}>
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground">{value.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{value.description}</p>
+                <div className="flex items-start gap-3">
+                  {value.title.includes('PDF') ? (
+                    <FileText className="mt-0.5 h-5 w-5 shrink-0 text-[#A98E7B]" />
+                  ) : value.title.includes('Profiles') ? (
+                    <User className="mt-0.5 h-5 w-5 shrink-0 text-[#A98E7B]" />
+                  ) : (
+                    <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-[#A98E7B]" />
+                  )}
+                  <div>
+                    <h3 className={`text-lg font-semibold ${luxe.ink}`}>{value.title}</h3>
+                    <p className={`mt-2 text-sm leading-relaxed ${luxe.muted}`}>{value.description}</p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
-        {mockTeamMembers.map((member) => (
-          <Card key={member.id} className="border-border bg-card transition-transform hover:-translate-y-1">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3">
-                <Avatar className="h-12 w-12">
-                  <AvatarImage src={member.avatar} alt={member.name} />
-                  <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{member.name}</p>
-                  <p className="text-xs text-muted-foreground">{member.role}</p>
+      <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <Card className={`${luxe.card} lg:col-span-3`}>
+          <CardContent className="grid gap-6 p-8 md:grid-cols-[0.35fr_1fr] md:items-start">
+            <div className="flex items-center gap-2">
+              <Shield className="h-6 w-6 text-[#A98E7B]" />
+              <h2 className={`font-display text-2xl font-semibold ${luxe.ink}`}>Studio milestones</h2>
+            </div>
+            <ul className="space-y-4">
+              {milestones.map((m) => (
+                <li key={m.year} className={`flex gap-4 border-b border-[#eadfd6] pb-4 last:border-0 last:pb-0`}>
+                  <span className="font-display text-lg font-semibold text-[#A98E7B]">{m.year}</span>
+                  <p className={`text-sm leading-7 ${luxe.muted}`}>{m.text}</p>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="mt-10">
+        <p className={luxe.eyebrow}>People behind the studio</p>
+        <h2 className={`mt-2 font-display text-2xl font-semibold ${luxe.ink}`}>Core team</h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
+          {mockTeamMembers.map((member) => (
+            <Card key={member.id} className={`${luxe.card} transition-transform hover:-translate-y-1`}>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-12 w-12 border border-[#e5d9cf]">
+                    <AvatarImage src={member.avatar} alt={member.name} />
+                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className={`text-sm font-semibold ${luxe.ink}`}>{member.name}</p>
+                    <p className={`text-xs ${luxe.muted}`}>{member.role}</p>
+                  </div>
                 </div>
-              </div>
-              <p className="mt-3 text-sm text-muted-foreground">{member.bio}</p>
-              <p className="mt-3 text-xs text-muted-foreground">{member.location}</p>
-            </CardContent>
-          </Card>
-        ))}
+                <p className={`mt-3 text-sm leading-relaxed ${luxe.muted}`}>{member.bio}</p>
+                <p className={`mt-3 text-xs ${luxe.muted}`}>{member.location}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </PageShell>
-  );
+  )
 }

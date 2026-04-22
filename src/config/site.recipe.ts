@@ -7,11 +7,12 @@ export const SITE_RECIPE: SiteRecipe = {
   navbarTemplate: 'editorial-bar',
   footerTemplate: 'columns-footer',
   motionPack: 'editorial-soft',
-  primaryTask: 'article',
-  enabledTasks: ['profile'],
+  primaryTask: 'pdf',
+  enabledTasks: ['pdf', 'profile'],
   taskTemplates: {
     article: 'article-journal',
     profile: 'profile-business',
+    pdf: 'article-journal',
   },
   manualOverrides: {
     navbar: false,

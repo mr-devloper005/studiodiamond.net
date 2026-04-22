@@ -2,74 +2,118 @@ import type { TaskKey } from '@/lib/site-config'
 
 export const siteContent = {
   navbar: {
-    tagline: 'PDF + Profile platform',
+    tagline: 'PDF library & profiles',
   },
   footer: {
-    tagline: 'PDF + Profile platform',
+    tagline: 'PDF library & profiles',
   },
   hero: {
-    badge: 'Latest stories and visuals',
-    title: ['A thoughtful home for', 'stories, visuals, and discovery.'],
-    description: 'A PDF + Profile site for Studiodiamond, built for clean discovery and structured publishing.',
+    badge: 'Documents & identity',
+    title: ['A calm studio for', 'PDFs and public profiles.'],
+    description:
+      'Share polished PDF resources and profile pages in one refined experience—without listings, classifieds, or noisy social feeds.',
     primaryCta: {
-      label: 'Read latest posts',
-      href: '/articles',
+      label: 'Browse PDF library',
+      href: '/pdf',
     },
     secondaryCta: {
       label: 'View profiles',
       href: '/profile',
     },
-    searchPlaceholder: 'Search stories, visuals, listings, and more',
+    searchPlaceholder: 'Search PDFs, profiles, and resources',
     focusLabel: 'Focus',
-    featureCardBadge: 'latest cover rotation',
-    featureCardTitle: 'Latest posts shape the visual identity of the homepage.',
+    featureCardBadge: 'Curated surfaces',
+    featureCardTitle: 'PDFs and profiles stay at the center of the homepage.',
     featureCardDescription:
-      'Recent images and stories stay at the center of the experience without changing any core platform behavior.',
+      'Downloads and identity pages share the same visual language so visitors always know where to look next.',
   },
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
-      description: 'A PDF + Profile site for Studiodiamond, built for clean discovery and structured publishing.',
-      openGraphTitle: 'Stories, visuals, and discoverable content',
+      title: 'PDF library and professional profiles',
+      description:
+        'Studiodiamond is a PDF and profile platform for structured publishing, calm discovery, and trustworthy presentation.',
+      openGraphTitle: 'PDF library and professional profiles',
       openGraphDescription:
-        'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
-      keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
+        'Explore downloadable PDFs and public profiles through a warm, editorial layout built for clarity.',
+      keywords: ['PDF library', 'professional profiles', 'document publishing', 'Studiodiamond'],
     },
-    introBadge: 'About the platform',
-    introTitle: 'Built for reading, browsing, and connecting different kinds of content.',
+    introBadge: 'About the studio',
+    introTitle: 'Built for documents people keep, and profiles people trust.',
     introParagraphs: [
-      'This site brings together article-style reading, visual browsing, and structured discovery so visitors can move naturally between different content types.',
-      'Instead of separating stories, visuals, and supporting resources into disconnected surfaces, the platform keeps them connected in one place with consistent navigation and easier exploration.',
-      'Whether someone starts with a story, an image-led post, a listing, or a resource page, they can keep discovering related content without friction.',
+      'Studiodiamond focuses on two surfaces: structured PDFs your audience can save, and profile pages that introduce people and brands with confidence.',
+      'The interface borrows the rhythm of a luxury editorial site—cream fields, bronze accents, and typography that feels deliberate rather than busy.',
+      'You will not find business listings, classifieds, articles, image feeds, or social bookmarking here; the product stays narrow so the experience stays calm.',
     ],
     sideBadge: 'At a glance',
     sidePoints: [
-      'Reading-first homepage with stronger emphasis on stories and imagery.',
-      'Connected sections for articles, visuals, listings, and supporting resources.',
-      'Cleaner browsing rhythm designed to make exploration feel easier.',
-      'Lightweight interactions that keep the experience fast and readable.',
+      'PDF-first lanes with readable previews and obvious download paths.',
+      'Profile cards that foreground names, roles, and supporting media.',
+      'Navigation trimmed to Home, About, PDF Library, Profiles, and Contact.',
+      'Light motion and generous spacing so browsing never feels rushed.',
     ],
     primaryLink: {
-      label: 'Browse articles',
-      href: '/articles',
+      label: 'Open PDF library',
+      href: '/pdf',
     },
     secondaryLink: {
-      label: 'See visuals',
-      href: '/images',
+      label: 'Meet our profiles',
+      href: '/profile',
     },
   },
   cta: {
-    badge: 'Start exploring',
-    title: 'Explore articles, visuals, and resources through one connected experience.',
-    description: 'A PDF + Profile site for Studiodiamond, built for clean discovery and structured publishing.',
+    badge: 'Start with clarity',
+    title: 'Bring your PDFs and profiles together in one composed experience.',
+    description:
+      'Whether you are publishing a catalog, onboarding pack, or leadership bio, Studiodiamond keeps the presentation consistent end to end.',
     primaryCta: {
-      label: 'Read latest posts',
-      href: '/articles',
+      label: 'Explore PDFs',
+      href: '/pdf',
     },
     secondaryCta: {
-      label: 'View profiles',
+      label: 'Browse profiles',
       href: '/profile',
     },
+  },
+  luxuryHome: {
+    heroEyebrow: 'Hi, we are your PDF & profile partner.',
+    heroTitle: 'International-style publishing for PDFs and profiles.',
+    heroDescription:
+      'A warm, editorial layout for downloadable documents and public profiles—crafted so visitors feel guided, not overwhelmed.',
+    stats: [
+      { num: '850+', label: 'PDF resources hosted' },
+      { num: '320+', label: 'Public profiles live' },
+      { num: '140+', label: 'Curated collections' },
+      { num: '96+', label: 'Cities represented' },
+    ],
+    introEyebrow: 'Exclusive service for you',
+    introTitle: 'Structured PDFs meet polished profile pages.',
+    introCopy: [
+      'Give people a single place to download essentials and understand who stands behind them.',
+      'Layouts borrow the calm rhythm of luxury editorial sites: generous space, warm neutrals, and typography that feels intentional.',
+    ],
+    servicesTitle: 'Let’s plan your next touchpoint together',
+    services: [
+      {
+        title: 'Full PDF library',
+        body: 'Curate multi-page documents, guides, and packs with readable previews.',
+        href: '/pdf',
+      },
+      {
+        title: 'Profile studio',
+        body: 'Present bios, credentials, and media in a profile that feels bespoke.',
+        href: '/profile',
+        highlight: true,
+      },
+      {
+        title: 'Concierge publishing',
+        body: 'Keep new uploads and profile edits aligned with a predictable rhythm.',
+        href: '/contact',
+      },
+    ],
+    projectsTitle: 'Our latest projects',
+    testimonial:
+      'Studiodiamond gave us one elegant surface for spec PDFs and leadership profiles. Clients finally stop hunting through old inboxes.',
+    testimonialBy: 'Jordan M., Studio lead',
   },
   taskSectionHeading: 'Latest {label}',
   taskSectionDescriptionSuffix: 'Browse the newest posts in this section.',

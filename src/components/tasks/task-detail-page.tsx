@@ -248,13 +248,13 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#F9F7F4] text-[#2a211c]">
       <NavbarShell />
       <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <SchemaJsonLd data={schemaPayload} />
         <Link
           href={taskConfig?.route || "/"}
-          className="mb-6 inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
+          className="mb-6 inline-flex items-center text-sm font-medium text-[#6b584d] transition hover:text-[#A98E7B]"
         >
           ← Back to {taskConfig?.label || "posts"}
         </Link>
@@ -268,7 +268,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
           <div className={cn(isClassified ? "space-y-8" : "")}>
             {isArticle ? (
               <div className="mx-auto w-full max-w-4xl space-y-6">
-                <h1 className="text-4xl font-semibold leading-tight text-foreground">
+                <h1 className="font-display text-4xl font-semibold leading-tight text-[#2a211c]">
                   {post.title}
                 </h1>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
@@ -292,7 +292,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                   <p className="text-base leading-7 text-muted-foreground">{articleSummary}</p>
                 ) : null}
                 {images[0] ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-[#e5d9cf] bg-[#faf6f2] shadow-sm">
                     <ContentImage
                       src={images[0]}
                       alt={`${post.title} featured image`}
@@ -485,7 +485,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
               {taskConfig?.route && (
                 <Link
                   href={taskConfig.route}
-                  className="text-sm text-muted-foreground hover:text-foreground"
+                  className="text-sm font-medium text-[#A98E7B] hover:text-[#8a7265]"
                 >
                   View all
                 </Link>
@@ -502,14 +502,14 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
             </div>
             </>
           ) : null}
-          <nav className="mt-6 rounded-2xl border border-border bg-card/60 p-4">
-            <p className="text-sm font-semibold text-foreground">Related links</p>
+          <nav className="mt-6 rounded-2xl border border-[#e5d9cf] bg-white/90 p-5 shadow-sm">
+            <p className="text-sm font-semibold text-[#2a211c]">Related links</p>
             <ul className="mt-2 space-y-2 text-sm">
               {related.map((item) => (
                 <li key={`link-${item.id}`}>
                   <Link
                     href={buildPostUrl(task, item.slug)}
-                    className="text-primary underline-offset-4 hover:underline"
+                    className="font-medium text-[#A98E7B] underline-offset-4 hover:underline"
                   >
                     {item.title}
                   </Link>
@@ -519,7 +519,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                 <li>
                   <Link
                     href={taskConfig.route}
-                    className="text-primary underline-offset-4 hover:underline"
+                    className="font-medium text-[#A98E7B] underline-offset-4 hover:underline"
                   >
                     Browse all {taskConfig.label}
                   </Link>
@@ -528,7 +528,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
               <li>
                 <Link
                   href={`/search?q=${encodeURIComponent(category)}`}
-                  className="text-primary underline-offset-4 hover:underline"
+                  className="font-medium text-[#A98E7B] underline-offset-4 hover:underline"
                 >
                   Search more in {category}
                 </Link>

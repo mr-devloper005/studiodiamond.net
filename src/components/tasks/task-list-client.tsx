@@ -53,15 +53,28 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
   }, [category, initialPosts, localPosts]);
 
   if (!merged.length) {
+    const emptyBody =
+      task === "pdf"
+        ? "No PDFs match this filter yet. Try “All categories”, browse search, or ask the studio to publish a new pack."
+        : task === "profile"
+          ? "No public profiles match this filter yet. Clear the category or reach out if someone should be listed here."
+          : "Nothing published in this lane yet. When new posts go live, they will appear here in the same luxe grid as the homepage.";
     return (
-      <div className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
-        No posts yet for this section.
+      <div className="rounded-2xl border border-dashed border-[#d4c4b8] bg-[#faf6f2]/60 p-12 text-center text-sm leading-relaxed text-[#6b584d]">
+        {emptyBody}
       </div>
     );
   }
 
+  const gridClass =
+    task === "profile"
+      ? "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      : task === "pdf"
+        ? "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        : "grid gap-6 sm:grid-cols-2 lg:grid-cols-4";
+
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div className={gridClass}>
       {merged.map((post) => {
         const localOnly = (post as any).localOnly;
         const href = localOnly
